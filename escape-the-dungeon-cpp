@@ -1,13 +1,102 @@
 #include <iostream>
+#include <limits>
 
 using namespace std;
 
-void ivalidInput() 
-{
+void invalidInput() {
     cout << "Invalid input! Please enter a valid choice." << endl;
 }
 
-void introduction() 
-{
+void introduction() {
     cout << "Welcome to Escape the Dungeon" << endl;
-    
+    cout << "You find yourself trapped in a dark dungeon." << endl;
+    cout << "Your mission is to find a way out." << endl;
+}
+
+bool choosePath() {
+    int pathChoice;
+
+    cout << "There are two paths in the dungeon. Choose which path to take:" << endl;
+    cout << "1. Left Path(Dark and scary evil creature noises)" << endl;
+    cout << "2. Right Path(Bright and peaceful filled with glow-worms)" << endl;
+    cout << "Make your choice(1 or 2)" << endl;
+    cin >> pathChoice;
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    if (pathChoice == 1) {
+        cout << "You chose the Left Path. It's dark and dangerous with human remains everywhere" << endl;
+        cout << "A dragon suddenly appears and stares" << endl; 
+        return fightDragon();
+    } 
+    else if (pathChoice == 2) {
+        cout << "You chose the Perfect path. It is beautiful and lead you to the exit." << endl;
+        cout << "You escape the dungeon without a problem. Congrats!!!" << endl;
+        return true;
+    }
+    else {
+        invalidInput();
+        return false;
+    }
+}
+
+bool fightDragon() 
+{
+    int weaponChoice;
+
+    cout << "The dragon takes off and charges towards you!" << endl;
+    cout << "Choose your weapon to fight:" << endl;
+    cout << "1. Sword" << endl;
+    cout << "2. Bow and arrow" << endl;
+    cout << "3. Rocket Launcher" << endl;
+    cout << "Enter your choice(1, 2,or 3): " << endl;
+    cin >> weaponChoice;
+
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        invalidInput();
+        return false;
+    }
+
+    switch (weaponChoice) {
+        case 1:
+            cout << "You chose the sword" << endl;
+            cout << "You figth with honor, but the sword breaks on the dragon tough skin!" << endl;
+            cout << "The dragon turns you into ashes with his fire breath" << endl;
+            return false;
+        case 2:
+            cout << "You chose the bow and arrow!" << endl;
+            cout << "You almost had him but ran out of arrows!" << endl;
+            cout << "The dragon eats you in one bite!" << endl;
+            return false;
+        case 3:
+            cout << "You chose the rocket launcher!" << endl;
+            cout << "You launch a rocket and miss! The dragon leaps towards you with his mouth open!" << endl;
+            cout << "You reload fast send a rocket down his throat!" << endl;
+            cout << "You are covered in blood but survived the battle!" << endl;
+            return true;
+        default:
+            invalidInput();
+            return false;
+    }
+}
+
+int main() {
+    bool isGameOver = false;
+
+    introduction();
+
+    while (!isGameOver) {
+        isGameOver = choosePath();
+    }
+
+    if (isGameOver) {
+        cout << "Thank you for playing warrion! You successfully escaped the dungeon!" << endl;
+    }
+
+    return 0;
+}
